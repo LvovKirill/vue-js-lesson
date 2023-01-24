@@ -1,26 +1,21 @@
 <template>
 
   <div class="app">
-
-      <form>
-        <h4>Добавить пост</h4>
-        <input class="input" type="text" placeholder="Название">
-        <input class="input" type="text" placeholder="Описание">
-        <button>Создать пост</button>
-      </form>
-
-
-  <div class="post" v-for="post in posts" :key="post.id">
-      <div><strong>Название: </strong>{{post.title}}</div>
-      <div><strong>Описание: </strong>{{post.body}}</div>
+    <post-form @create = "createPost"></post-form>
+    <post-list v-bind:posts="posts"></post-list>
   </div>
-  </div>
-
 </template>
 
 <script>
+import PostForm from "@/components/PostForm";
+import PostList from "@/components/PostList";
 
 export default {
+
+  components:{
+    PostForm, PostList,
+  },
+
   data(){
     return{
       posts: [
@@ -31,10 +26,13 @@ export default {
     }
   },
 
-  // methods: {
-  //
-  //
-  // }
+  methods: {
+      createPost(post){
+          this.posts.push(post)
+      },
+
+
+  }
 }
 </script>
 
@@ -46,21 +44,17 @@ export default {
   box-sizing: border-box;
 }
 
-.post{
-  padding: 15px;
-  border: 2px solid cornflowerblue;
-  margin-top: 5px;
-}
 
-.input{
-  width: 100%;
-  border: 2px solid cornflowerblue;
-  padding: 15px;
-  margin-top: 5px;
+
+form{
+  display: flex;
+  flex-direction: column;
 }
 
 .app{
   padding: 20px;
 }
+
+
 
 </style>
